@@ -1,15 +1,13 @@
 <script setup>
-  import TheNavbar from './components/TheNavbar.vue'
+import TheNavbar from './components/TheNavbar.vue'
+import HeroSlider from './components/HeroSlider.vue'
 </script>
 
 <template>
-  <div class="min-h-screen overflow-x-hidden font-body text-gray-800">
+  <div class="font-body min-h-screen">
     <TheNavbar />
     <main>
-      <h1 class="text-3xl font-bold text-center mt-10 text-primary">
-        Czysty projekt gotowy do pracy!
-      </h1>
+      <HeroSlider />
     </main>
-    
   </div>
 </template>
