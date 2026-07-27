@@ -1,6 +1,7 @@
 <script setup>
 import TheNavbar from './components/TheNavbar.vue'
 import HeroSlider from './components/HeroSlider.vue'
+import OfferSection from './components/OfferSection.vue';
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import HeroSlider from './components/HeroSlider.vue'
     <TheNavbar />
     <main>
       <HeroSlider />
+      <OfferSection />
     </main>
   </div>
 </template>
