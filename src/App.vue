@@ -4,6 +4,8 @@ import HeroSlider from './components/HeroSlider.vue'
 import OfferSection from './components/OfferSection.vue';
 import AboutSection from './components/AboutSection.vue';
 import ProjectsSection from './components/ProjectsSection.vue';
+import InstagramSection from './components/InstagramSection.vue';
+import FooterSection from './components/FooterSection.vue';
 </script>
 
 <template>
@@ -14,6 +16,8 @@ import ProjectsSection from './components/ProjectsSection.vue';
       <OfferSection />
       <AboutSection />
       <ProjectsSection />
+      <InstagramSection />
+      <FooterSection />
     </main>
   </div>
 </template>
