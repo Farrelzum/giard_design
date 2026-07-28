@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { slides } from '../data/slides.js'
+import HeroSlide from './HeroSlide.vue'
+import SliderNavigation from './SliderNavigation.vue'
 
 const currentSlide = ref(0)
 
@@ -46,62 +48,14 @@ const handleSwipe = () => {
       class="flex transition-transform duration-700 ease-in-out"
       :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
     >
-      <div 
+      <HeroSlide 
         v-for="(slide, index) in slides" 
         :key="index" 
-        class="w-full flex-shrink-0 relative flex flex-col md:block"
-      >
-        <div class="w-full h-[18.75rem] md:h-full md:absolute md:top-0 md:right-0 md:w-1/2">
-          <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover" draggable="false" />
-        </div>
-        <div class="relative max-w-7xl mx-auto px-4 w-full md:min-h-[45rem] flex items-center">
-          
-          <div class="w-full md:w-1/2 md:pr-12 pt-10 pb-16 md:py-[6rem]">
-            
-            <h1 class="text-4xl md:text-[3.5rem] md:leading-[4rem] text-black font-semibold mb-[2.75rem] whitespace-pre-line tracking-tight">
-              {{ slide.title }}
-            </h1>
-            
-            <p class="text-base md:text-[1rem] md:leading-[1.75rem] text-gray-800 mb-[4.5rem] max-w-md">
-              {{ slide.description }}
-            </p>
-            <div class="flex flex-col lg:flex-row items-start lg:items-center gap-[1rem] md:gap-[2.25rem]">
-              <button class="bg-primary hover:bg-green-700 text-white px-8 md:px-[2rem] py-3 md:py-[0.875rem] rounded-full text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none">
-                Skontaktuj się z nami
-              </button>
-              
-              <button class="border border-primary text-primary hover:bg-black/5 px-8 md:px-[2rem] py-3 md:py-[0.875rem] rounded-full text-sm font-medium transition-colors flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-primary outline-none">
-                Zobacz nasze realizacje
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-[1.125rem] md:w-[1.125rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </button>
-            </div>
+        :slide="slide" 
+      />
+    </div>
 
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex absolute top-[14.75rem] md:top-auto md:bottom-0 right-0 bg-[#F6F1E9] shadow-sm z-10">
-      <button 
-        @click="prevSlide" 
-        class="w-[4rem] h-[4rem] flex items-center justify-center hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary outline-none"
-        aria-label="Poprzedni slajd"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-[1.5rem] w-[1.5rem] text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-      </button>
-      
-      <button 
-        @click="nextSlide" 
-        class="w-[4rem] h-[4rem] flex items-center justify-center hover:bg-gray-100 transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary outline-none"
-        aria-label="Następny slajd"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-[1.5rem] w-[1.5rem] text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </button>
-    </div>
+    <SliderNavigation @prev="prevSlide" @next="nextSlide" />
+    
   </section>
 </template>
