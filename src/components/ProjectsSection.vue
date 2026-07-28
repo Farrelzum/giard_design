@@ -2,6 +2,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import Macy from 'macy'
 import { projectsPhotos } from '../data/projects.js'
+import ProjectCard from './ProjectCard.vue'
+import ProjectLightbox from './ProjectLightbox.vue'
 
 const macyContainer = ref(null)
 const projects = ref(projectsPhotos)
@@ -96,27 +98,15 @@ onUnmounted(() => {
         :class="isExpanded ? 'max-h-[5000px]' : 'max-h-[50rem] md:max-h-[70rem]'"
       >
         
-        <div ref="macyContainer">
-          <div 
-            v-for="(image, index) in projects" 
-            :key="index"
-            class="cursor-pointer group"
-            @click="openLightbox(index)"
-          >
-            <div class="relative overflow-hidden">
-              <img 
-                :src="image" 
-                :alt="`Realizacja ${index + 1}`" 
-                class="w-full block object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div ref="macyContainer">
+        <ProjectCard 
+          v-for="(image, index) in projects" 
+          :key="index"
+          :image="image"
+          :index="index"
+          @open-lightbox="openLightbox"
+        />
+      </div>
         <div 
         v-if="!isExpanded" 
         class="absolute bottom-0 left-0 w-full h-[25rem] bg-gradient-to-t from-about to-about/0 pointer-events-none z-10"
@@ -144,57 +134,11 @@ onUnmounted(() => {
     </div>
   </section>
 
-  <Teleport to="body">
-    <Transition name="fade">
-      <div 
-        v-if="activeIndex !== null"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
-        @click.self="closeLightbox"
-      >
-        <button 
-          @click="closeLightbox" 
-          class="absolute top-6 right-6 text-white/70 hover:text-white p-2 outline-none"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-[2rem] md:w-[2rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <button 
-          @click="prevPhoto" 
-          class="absolute left-4 md:left-[2rem] text-white/70 hover:text-white p-4 outline-none hidden md:block"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 md:h-[3rem] md:w-[3rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        <img 
-          :src="projects[activeIndex]" 
-          class="max-w-[90vw] max-h-[90vh] object-contain select-none"
-          alt="Podgląd projektu"
-        />
-
-        <button 
-          @click="nextPhoto" 
-          class="absolute right-4 md:right-[2rem] text-white/70 hover:text-white p-4 outline-none hidden md:block"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 md:h-[3rem] md:w-[3rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-    </Transition>
-  </Teleport>
+  <ProjectLightbox 
+      :projects="projects" 
+      :active-index="activeIndex" 
+      @close="closeLightbox" 
+      @next="nextPhoto" 
+      @prev="prevPhoto" 
+  />
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
