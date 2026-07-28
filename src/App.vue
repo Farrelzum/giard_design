@@ -3,6 +3,7 @@ import TheNavbar from './components/TheNavbar.vue'
 import HeroSlider from './components/HeroSlider.vue'
 import OfferSection from './components/OfferSection.vue';
 import AboutSection from './components/AboutSection.vue';
+import ProjectsSection from './components/ProjectsSection.vue';
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import AboutSection from './components/AboutSection.vue';
       <HeroSlider />
       <OfferSection />
       <AboutSection />
+      <ProjectsSection />
     </main>
   </div>
 </template>
